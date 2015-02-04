@@ -8,5 +8,5 @@ int main(int argc, char * argv[])
 	free(some_memory);
 	free(some_memory);
 
-	printf("Successddddd\n");
+	printf("Success\n");
 }
