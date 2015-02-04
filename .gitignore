@@ -1,4 +1,3 @@
 *
 !*.c
 !Makefile
-double_free
