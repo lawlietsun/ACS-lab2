@@ -9,4 +9,6 @@ int main(int argc, char * argv[])
 	free(some_memory);
 
 	printf("Success\n");
+
+	return 0;	
 }

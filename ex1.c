@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 struct element
 {
 	struct element * next;
@@ -34,65 +35,12 @@ void append_int(struct linked_list * list, int val)
 	}
 }
 
-void prepend_int(struct linked_list * list, int val)
+int count(struct linked_list * list)
 {
-	struct element * elem = malloc(sizeof(struct element));
-	elem -> data = val;
-	elem -> next = NULL;
-	if(list->head==NULL)
-	{
-		list->head=elem;
-	}
-	else
-	{
-		struct element * temp = NULL;
-		temp = list -> head;
-		list -> head = elem;
-		elem -> next = temp;
-	}
-}
-
-//cannot remove only one item
-void remove_tail(struct linked_list * list){
-	if(list->head==NULL)
-	{
-		printf("List is empty\n");
-	}
-	else
-	{
-		struct element * tail = list -> head;
-		struct element * curr = NULL;
-		curr = tail;
-		while(tail -> next != NULL)
-		{
-			curr = tail;
-			tail = tail -> next;
-		}
-		free(curr);
-	}
-}
-
-
-void remove_head(struct linked_list * list){
-	if(list->head==NULL)
-	{
-		printf("List is empty\n");
-	}
-	else
-	{
-		struct element * elem = NULL;
-		elem = list->head;
-		list->head = elem->next;
-		elem = NULL;
-	}
-}
-
-
-int count(struct linked_list * list){
 	int i = 0;
-	if(list->head==NULL)
+	if(list -> head == NULL)
 	{
-		printf("List is empty\n");
+		return i;
 	}
 	else
 	{
@@ -107,37 +55,103 @@ int count(struct linked_list * list){
 	return i;
 }
 
+void prepend_int(struct linked_list * list, int val)
+{
+	struct element * elem = malloc(sizeof(struct element));
+	elem -> data = val;
+	elem -> next = NULL;
+	if(list -> head == NULL)
+	{
+		list -> head = elem;
+	}
+	else
+	{
+		struct element * temp = NULL;
+		temp = list -> head;
+		list -> head = elem;
+		elem -> next = temp;
+	}
+}
 
-int main()
+void remove_head(struct linked_list * list)
+{
+	if(list -> head == NULL) //empty list, return empty list, nothing can be removed.
+	{
+		return;
+	}
+	else
+	{
+		struct element * elem = NULL;
+		elem = list->head;
+		if(elem -> next == NULL) // list with one element(head), remove head. return empty list.
+		{
+			list->head = NULL;
+		}
+		else
+		{
+			list->head = elem->next;
+			elem = NULL;
+		}
+	}
+}
+
+void remove_tail(struct linked_list * list)
+{
+	if(list -> head == NULL) //empty list, return empty list, nothing can be removed.
+	{
+		return;
+	}
+	else
+	{
+		struct element * tail = list -> head;
+		if(tail -> next == NULL) // list with one element(head), remove head. return empty list.
+		{
+			list -> head = NULL;
+		}
+		else
+		{
+			struct element * curr = NULL;
+			curr = tail;
+			while(tail -> next != NULL)
+			{
+				curr = tail;
+				tail = tail -> next;
+			}
+			curr -> next = NULL;
+		}
+	}
+}
+
+int main(int argc,char * argv[])
 {
 	struct linked_list * mylist = malloc(sizeof(struct linked_list));
+
+	mylist -> head = NULL;
+	
 	append_int(mylist,1);
 	append_int(mylist,2);
 	append_int(mylist,3);
 	append_int(mylist,4);
-	prepend_int(mylist,111);
-	append_int(mylist,5);
-	append_int(mylist,6);
-	append_int(mylist,7);
-	append_int(mylist,8);
-	append_int(mylist,9);
-	prepend_int(mylist,122);
-	prepend_int(mylist,133);
-	prepend_int(mylist,144);
-	append_int(mylist,10);
+	prepend_int(mylist,0);
 	remove_tail(mylist);
 	remove_head(mylist);
 
 // print list 
 	struct element * tail = mylist -> head;
-	printf("%d\n", tail -> data);
-	while(tail -> next != NULL)
+	if(tail == NULL)
 	{
-		tail = tail -> next;
-		printf("%d\n", tail -> data);
+		printf("No element in the list.\n");
 	}
-
-	printf("Number of elements = %d\n", count(mylist));
+	else
+	{
+		printf("%d\n", tail -> data);
+		while(tail -> next != NULL)
+		{
+			tail = tail -> next;
+			printf("%d\n", tail -> data);
+		}
+		printf("Number of elements is %d\n", count(mylist));
+	}
 
 	free(mylist);
 

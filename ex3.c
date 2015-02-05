@@ -2,13 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 
+
 int check_authentication(char * password)
 {
 	int authorized = 0;
 	// char password_buffer[16];
 	char * password_buffer;
 
-	password_buffer = (char *) malloc(sizeof(char) * 10);
+	password_buffer = (char *) malloc(sizeof(char) * 1);
 
 	strcpy(password_buffer, password);
 	if(strcmp(password_buffer,"admin123") == 0)
@@ -17,8 +18,6 @@ int check_authentication(char * password)
 	}
 
 	return authorized;
-
-	free(password_buffer);
 
 }
 
