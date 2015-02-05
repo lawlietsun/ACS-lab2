@@ -17,9 +17,10 @@ void * malloc(size_t size)
 	void * retval = wrapped_malloc(size);
 //Do extra logging
 	printf("malloc(%d)=%p\n",size,retval);
-
 	return retval;
 }
 
-// macos compile code : gcc-4.9 -D_GNU_SOURCE -fPIC -shared -ldl -o mymalloc.so mymalloc.c
-// macos runcode : DYLD_INSERT_LIBRARIES=./mymalloc.so DYLD_FORCE_FLAT_NAMESPACE=y date
+/* MacOS compile and run code : 
+gcc-4.9 -D_GNU_SOURCE -fPIC -shared -ldl -o mymalloc.so mymalloc.c
+DYLD_INSERT_LIBRARIES=./mymalloc.so DYLD_FORCE_FLAT_NAMESPACE=1 date
+*/
